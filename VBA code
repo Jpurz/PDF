@@ -1,0 +1,44 @@
+Sub Meters() 'paste meters report data in cell A1 and run macro
+Dim y As Integer
+Dim x As Integer
+Dim RegEx As Object, Str As String
+Set RegEx = CreateObject("VBScript.RegExp")
+
+Rows("1:13").Delete
+Range("2:2,4:4,6:6,8:8,10:10,12:12,14:14,16:16,18:18,20:20").Delete
+Range("b1").Delete Shift:=xlToLeft
+Range("F:F").Delete
+Call FindReplace
+
+With RegEx
+    .pattern = "(\d+\.)\d{2}"
+    .Global = False
+End With
+
+For Each cell In Range("b2:e20")
+    cell.Value = RegEx.Replace(cell, "")
+        
+Next
+
+Range("a2:e40").Select
+Selection.NumberFormat = "0.00"
+
+'Debug.Print RegEx.Replace(Str, "")
+MsgBox ("Jayhawks are #1, press Ok to confirm")
+
+End Sub
+
+Sub FindReplace()
+' FindReplace Macro
+'
+ Columns("A:A").Select
+    Selection.Replace What:="Diff.", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+    Selection.Replace What:="1004-", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+    Selection.Replace What:="-", Replacement:="", LookAt:=xlPart, _
+        SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
+        ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
+End Sub
