@@ -1,4 +1,4 @@
-Sub Meters() 'paste meters report data in cell A1 and run macro
+Sub pdfpuller() 'paste meters report data in cell A1 and run macro
 Dim y As Integer
 Dim x As Integer
 Dim RegEx As Object, Str As String
@@ -32,10 +32,10 @@ Sub FindReplace()
 ' FindReplace Macro
 '
  Columns("A:A").Select
-    Selection.Replace What:="Diff.", Replacement:="", LookAt:=xlPart, _
+    Selection.Replace What:="text2remove", Replacement:="", LookAt:=xlPart, _
         SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
         ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
-    Selection.Replace What:="1004-", Replacement:="", LookAt:=xlPart, _
+    Selection.Replace What:="badData-", Replacement:="", LookAt:=xlPart, _
         SearchOrder:=xlByRows, MatchCase:=False, SearchFormat:=False, _
         ReplaceFormat:=False, FormulaVersion:=xlReplaceFormula2
     Selection.Replace What:="-", Replacement:="", LookAt:=xlPart, _
